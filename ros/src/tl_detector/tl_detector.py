@@ -62,8 +62,10 @@ class TLDetector(object):
             flg_site = self.config['is_site']
         if FLG_USE_GROUND_TRUTH == False:
             if flg_site == True:
+                rospy.loginfo('Loading Site Model for Traffic Light Detection')
                 self.light_classifier.load_model(PATH_TRAINED_GRAPH_SITE)
             else:
+                rospy.loginfo('Loading Simulator Model for Traffic Light Detection')
                 self.light_classifier.load_model(PATH_TRAINED_GRAPH_SIM)
 
         self.listener = tf.TransformListener()
@@ -119,7 +121,6 @@ class TLDetector(object):
             else:
                 self.upcoming_red_light_pub.publish(Int32(self.last_wp))
             self.state_count += 1
-
             self.threading_rlock.release()
 
 
@@ -156,9 +157,7 @@ class TLDetector(object):
         closest_idx = 0;
         if(self.pose):
             closest_idx = self.get_closest_waypoint(self.pose.pose.position.x, self.pose.pose.position.y)
-        #closest_idx = self.get_closest_waypoint_idx()
         farthest_idx = closest_idx + LOOKAHEAD_WPS
-        #return self.stopline_wp_idx == -1 or (self.stopline_wp_idx >= farthest_idx)
         return self.last_wp == -1 or (self.last_wp >= farthest_idx)
 
 
