@@ -28,7 +28,7 @@ class Controller(object):
         self.fuel_capacity = fuel_capacity
         self.brake_deadband = brake_deadband
         self.decel_limit = decel_limit
-        self.acces_limit = accel_limit
+        self.accel_limit = accel_limit
         self.wheel_radius = wheel_radius
         
         self.last_time = rospy.get_time()
