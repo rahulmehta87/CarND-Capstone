@@ -154,7 +154,7 @@ class TLDetector(object):
 
 
     def is_near_by_traffic_light(self):
-        closest_idx = 0;
+        closest_idx = 0
         if(self.pose):
             closest_idx = self.get_closest_waypoint(self.pose.pose.position.x, self.pose.pose.position.y)
         farthest_idx = closest_idx + LOOKAHEAD_WPS
