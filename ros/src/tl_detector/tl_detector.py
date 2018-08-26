@@ -18,10 +18,10 @@ import threading
 
 STATE_COUNT_THRESHOLD = 3
 
-FLG_TRAINNING_DATA_COLLECTION = False #True
-FLG_USE_GROUND_TRUTH = False
+FLG_TRAINING_DATA_COLLECTION = True
+FLG_USE_GROUND_TRUTH = True
 
-LOOKAHEAD_WPS = 50 # 50 # Number of waypoints we will publish. You can change this number
+LOOKAHEAD_WPS = 50
 
 PATH_TRAINED_GRAPH_SIM = "./frozen_inference_graph.pb"
 PATH_TRAINED_GRAPH_SITE = "./site/frozen_inference_graph.pb"
@@ -178,7 +178,7 @@ class TLDetector(object):
 
         cv_image = self.bridge.imgmsg_to_cv2(self.camera_image, "bgr8")
 
-        if FLG_TRAINNING_DATA_COLLECTION:
+        if FLG_TRAINING_DATA_COLLECTION:
             label = TrafficLight.UNKNOWN
             if self.is_near_by_traffic_light():
                 label = light.state
