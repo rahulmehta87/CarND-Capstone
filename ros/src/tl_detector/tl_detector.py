@@ -158,7 +158,7 @@ class TLDetector(object):
         if (self.pose):
             closest_idx = self.get_closest_waypoint(self.pose.pose.position.x, self.pose.pose.position.y)
         farthest_idx = closest_idx + LOOKAHEAD_WPS
-        return self.last_wp == -1 or (self.last_wp >= farthest_idx)
+        return self.last_wp != -1 and self.last_wp <= farthest_idx
 
 
     def get_light_state(self, light):
