@@ -155,7 +155,7 @@ class TLDetector(object):
 
     def is_near_by_traffic_light(self):
         closest_idx = 0
-        if(self.pose):
+        if (self.pose):
             closest_idx = self.get_closest_waypoint(self.pose.pose.position.x, self.pose.pose.position.y)
         farthest_idx = closest_idx + LOOKAHEAD_WPS
         return self.last_wp == -1 or (self.last_wp >= farthest_idx)
@@ -172,9 +172,8 @@ class TLDetector(object):
 
         """
 
-        if(not self.has_image):
-            self.prev_light_loc = None
-            return False
+        if not self.has_image:
+            return TrafficLight.UNKNOWN
 
         cv_image = self.bridge.imgmsg_to_cv2(self.camera_image, "bgr8")
 
@@ -205,7 +204,7 @@ class TLDetector(object):
 
         # List of positions that correspond to the line to stop in front of for a given intersection
         stop_line_positions = self.config['stop_line_positions']
-        if(self.pose):
+        if self.pose:
             car_wp_idx = self.get_closest_waypoint(self.pose.pose.position.x, self.pose.pose.position.y)
 
             #TODO find the closest visible traffic light (if one exists)
