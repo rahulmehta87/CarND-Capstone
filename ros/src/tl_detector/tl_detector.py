@@ -156,7 +156,9 @@ class TLDetector(object):
     def is_near_by_traffic_light(self, light):
         if self.pose and light.pose:
             self_closest_idx = self.get_closest_waypoint(self.pose.pose.position.x, self.pose.pose.position.y)
+            rospy.loginfo('Self at waypoint: %d', self_closest_idx)
             light_closest_idx = self.get_closest_waypoint(light.pose.pose.position.x, light.pose.pose.position.y)
+            rospy.loginfo('Light at waypoint: %d', light_closest_idx)
             return light_closest_idx < self_closest_idx + LOOKAHEAD_WPS
         return False
 
