@@ -181,6 +181,8 @@ class TLDetector(object):
             label = TrafficLight.UNKNOWN
             if self.is_near_by_traffic_light():
                 label = light.state
+
+            rospy.loginfo('Saving image with label: %s', label)
             self.light_classifier.save_training_data(cv_image, label)
 
         if FLG_USE_GROUND_TRUTH:
