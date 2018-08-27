@@ -153,12 +153,12 @@ class TLDetector(object):
         return closest_idx
 
 
-    def is_near_by_traffic_light(self):
-        closest_idx = 0
-        if (self.pose):
-            closest_idx = self.get_closest_waypoint(self.pose.pose.position.x, self.pose.pose.position.y)
-        farthest_idx = closest_idx + LOOKAHEAD_WPS
-        return self.last_wp != -1 and self.last_wp <= farthest_idx
+    def is_near_by_traffic_light(self, light):
+        if self.pose and light.pose:
+            self_closest_idx = self.get_closest_waypoint(self.pose.pose.position.x, self.pose.pose.position.y)
+            light_closest_idx = self.get_closest_waypoint(light.pose.pose.position.x, light.pose.pose.position.y)
+            return light_closest_idx < self_closest_idx + LOOKAHEAD_WPS
+        return False
 
 
     def get_light_state(self, light):
@@ -179,7 +179,7 @@ class TLDetector(object):
 
         if FLG_TRAINING_DATA_COLLECTION:
             label = TrafficLight.UNKNOWN
-            if self.is_near_by_traffic_light():
+            if self.is_near_by_traffic_light(light):
                 label = light.state
 
             rospy.loginfo('Saving image with label: %s', label)
